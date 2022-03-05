@@ -1,0 +1,13 @@
+default: &default
+  host: localhost
+  port: 5432
+  username: dev
+  
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production: 
+  <<: *default

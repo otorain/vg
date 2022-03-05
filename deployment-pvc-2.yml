@@ -1,0 +1,42 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-pvc-2
+  namespace: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: deployment-pvc-2
+  template:
+    metadata:
+      labels:
+        app: deployment-pvc-2
+    spec: 
+      containers:
+      - name: busybox
+        image: busybox:1.34.1
+        command:
+        - /bin/sh
+        - -c
+        - |
+          while true; do echo busybox >> /mnt/test.log; sleep 1; done
+        volumeMounts:
+        - name: pvc5
+          mountPath: /mnt
+      - name: nginx
+        image: nginx:1.21.6
+        volumeMounts:
+        - name: pvc5
+          mountPath: /var/log/nginx
+      volumes: 
+      - name: pvc5
+        persistentVolumeClaim:
+          claimName: pvc5
+          readOnly: false
+      
+        
+      
+    
+    

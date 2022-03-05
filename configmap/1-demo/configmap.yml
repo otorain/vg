@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-1-demo
+  namespace: dev
+data:
+  SERVICE_HOST: "https://demo.mini-geek.com"
+  SERVICE_PORT: "3000"
+  SERVICE_USERNAME: "ian"

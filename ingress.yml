@@ -1,0 +1,29 @@
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-deployment-ingress
+  namespace: dev
+spec: 
+  rules:
+  - host: nginx-2.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend: 
+          service:
+            name: service-deployment-2
+            port:
+              number: 80
+  - host: nginx-3.com
+    http: 
+      paths:
+      - path: /
+        pathType: Prefix
+        backend: 
+          service:
+            name: service-deployment-3
+            port:
+              number: 80

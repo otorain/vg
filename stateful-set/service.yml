@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata: 
+  name: stateful-demo1
+spec: 
+  clusterIP: None
+  selector: 
+    app: stateful-demo1
+  ports:
+  - name: http
+    port: 80

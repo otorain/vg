@@ -1,0 +1,42 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-4-demo
+  namespace: dev
+data:
+  database.yml: |-
+    default: &default
+      host: localhost
+      port: 5432
+      username: admin
+      password: p@ssw0rd
+    
+    development:
+      <<: *default
+    
+    test: 
+      <<: *default
+    
+    staging:
+      <<: *default
+    
+    production:
+      <<: *default
+
+  mini_program.yml: |-
+    default: &default
+      appid: xxxxx
+      app_secret: xxxxxxx
+      host: http://xxxxx
+    
+    development:
+      <<: *default
+    
+    test: 
+      <<: *default
+    
+    staging:
+      <<: *default
+    
+    production:
+      <<: *default

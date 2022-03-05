@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cm-2-demo
+  namespace: dev
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: cm-2-demo
+  template:
+    metadata:
+      labels: 
+        app: cm-2-demo
+    spec:
+      containers: 
+      - name: nginx
+        image: nginx:1.21.6
+        ports:
+        - name: http
+          containerPort: 80
+        volumeMounts:
+        - name: dbconfig
+          mountPath: /var/log/db.yml
+          subPath: db.yml
+      volumes:
+      - name: dbconfig
+        configMap:
+          name: dbconfig

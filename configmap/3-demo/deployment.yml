@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cm-3-demo
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cm-3-demo
+  template:
+    metadata:
+      labels:
+        app: cm-3-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - name: http
+          containerPort: 80
+        envFrom:
+        - prefix: MINI_PROGRAM_
+          configMapRef:
+            name: cm-3-demo

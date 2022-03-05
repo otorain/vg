@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-3-demo
+  namespace: dev
+data:
+  APPID: xxxxxx
+  APP_SECRET: xxx@xxx
+  HOST: http://xxxx

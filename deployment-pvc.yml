@@ -1,0 +1,74 @@
+
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: deployment-pvc1
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: deployment-pvc
+  template:
+    metadata:
+      labels:
+        deployment: deployment-pvc
+    spec: 
+      restartPolicy: Always
+      containers:
+      - name: busybox
+        image: busybox 
+        command:
+        - /bin/sh
+        - -c 
+        - |
+          while true; do echo pvc1 >> /logs/out; sleep 2; done
+        volumeMounts:
+        - name: pvc1
+          mountPath: /logs
+      volumes:
+      - name: pvc1
+        persistentVolumeClaim:
+          claimName: pvc1
+          readOnly: false
+
+    
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-pvc2
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: deployment-pvc2
+  template:
+    metadata:
+      labels:
+        deployment: deployment-pvc2
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: busybox
+        image: busybox
+        command:
+        - /bin/sh
+        - -c 
+        - |
+          while true; do echo pvc2 >> /logs/out; sleep 2; done
+        volumeMounts:
+        - name: pvc2
+          mountPath: /logs
+      volumes:
+      - name: pvc2
+        persistentVolumeClaim:
+          claimName: pvc2
+          readOnly: false
+          
+          
+        

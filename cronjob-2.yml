@@ -1,0 +1,22 @@
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cronjob-2
+  namespace: dev
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate: 
+    spec:
+      template:
+        spec: 
+          containers:
+          - name: curl
+            image: curlimages/curl
+            command: 
+            - /bin/sh
+            - -c 
+            - |
+              curl -sSL https://demo.mini-geek.com
+          restartPolicy: Never

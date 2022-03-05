@@ -1,0 +1,23 @@
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: busy-cronjob
+  namespace: dev
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    # metadata:
+    spec:
+      template:
+        spec: 
+          restartPolicy: Never
+          containers:
+          - name: busybox
+            image: busybox
+            command:
+              - bin/sh
+              - -c 
+              - |
+                for i in 9 8 7 6 5 4 3 ; do echo $i; sleep 2; done;

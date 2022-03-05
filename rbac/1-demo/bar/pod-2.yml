@@ -1,0 +1,13 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: rbac-bar-pod-2
+  namespace: bar
+spec:
+  serviceAccountName: ps-reader
+  containers: 
+  - name: kubectl-proxy
+    image: luksa/kubectl-proxy
+    ports:
+    - containerPort: 80
+  

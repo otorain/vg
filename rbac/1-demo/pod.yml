@@ -1,0 +1,22 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: sa-1-demo
+  namespace: dev
+spec:
+  serviceAccountName: sa-1-demo
+  containers:
+  - name: k8s-demo
+    image: registry.cn-hangzhou.aliyuncs.com/south_lynx/k8s-demo:0.0.5
+    imagePullPolicy: Always
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+      limits:
+        cpu: 200m
+        memory: 300Mi
+    ports:
+    - name: http
+      containerPort: 3000
+      

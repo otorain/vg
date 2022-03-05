@@ -1,0 +1,15 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test
+  namespace: bar
+spec: 
+  serviceAccountName: service-reader
+  containers:
+  - name: kubectl-proxy
+    image: luksa/kubectl-proxy
+    ports:
+    - name: http
+      containerPort: 8001
+    
+    

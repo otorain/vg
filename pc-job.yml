@@ -1,0 +1,17 @@
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: busy-job
+  namespace: dev
+spec:
+  completions: 4
+  parallelism: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: counter
+        image: busybox
+        command: ["bin/sh", "-c", "for i in 9 8 7 6 5 4 3 2 1; do echo $i; sleep 3; done"]

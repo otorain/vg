@@ -1,0 +1,33 @@
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo1-configmap
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo1-configmap
+  template: 
+    metadata:
+      labels:
+        app: demo1-configmap
+    spec: 
+      containers: 
+      - name: busybox
+        image: busybox
+        command: 
+        - /bin/sh
+        - -c 
+        - sleep infinite
+        volumeMounts:
+        - name: database-config
+          mountPath: /logs/database.yml
+          subPath: database.yml
+      volumes:
+       - name: database-config
+         configMap:
+           name: prod-database-config

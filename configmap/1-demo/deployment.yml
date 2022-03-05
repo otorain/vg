@@ -1,0 +1,44 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cm-1-demo
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cm-1-demo
+  template:
+    metadata:
+      labels:
+        app: cm-1-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.21.6
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: SVC_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: cm-1-demo
+              key: SERVICE_HOST
+        - name: SVC_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: cm-1-demo
+              key: SERVICE_PORT
+        - name: SVC_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: cm-1-demo
+              key: SERVICE_USERNAME
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+    
+        
+      

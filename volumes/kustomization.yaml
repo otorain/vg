@@ -1,0 +1,4 @@
+configMapGenerator:
+- name: prod-database-config
+  files:
+  - prod-database-confg=database.yml

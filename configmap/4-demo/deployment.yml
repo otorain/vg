@@ -1,0 +1,44 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: cm-4-demo
+  namespace: dev
+
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values: ["cm-4-demo"]
+  template:
+    metadata:
+      labels:
+        app: cm-4-demo
+        for: config-map
+    spec:
+      containers: 
+      - name: nginx
+        image: nginx:1.21.5
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
+        volumeMounts:
+        - name: config
+          mountPath: /var/log/config
+        livenessProbe:
+          initialDelaySeconds: 5
+          httpGet:
+            path: /
+            port: 80
+
+      volumes:
+      - name: config
+        configMap:
+          name: cm-4-demo
+          items:
+          - key: database.yml
+            path: db.yml
+            
+          

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo1
+  namespace: dev
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo1
+  template:
+    metadata:
+      labels:
+        app: demo1
+    spec:
+      containers:
+      - name: demo1
+        image: registry.cn-hangzhou.aliyuncs.com/south_lynx/k8s-demo:0.0.5
+        ports: 
+        - name: http
+          containerPort: 3000
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+      imagePullSecrets:
+      - name: south-lynx-hub
+    

@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cm-test-deploy
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cm-test-deploy
+  template:
+    metadata:
+      labels:
+        app: cm-test-deploy
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.21.5
+        envFrom:
+        - configMapRef:
+            name: configmap-demo1

@@ -1,0 +1,20 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: dbconfig
+  namespace: dev
+data:
+  db.yml: |-
+    default: &default
+      host: localhost
+      port: 5432
+      username: dev
+
+    development:
+      <<: *default
+
+    test:
+      <<: *default
+
+    production: 
+      <<: *default

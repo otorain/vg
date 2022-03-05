@@ -1,0 +1,23 @@
+---
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-resources
+  namespace: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.20.2
+    imagePullPolicy: IfNotPresent
+    ports:
+    - name: nginx-pod
+      containerPort: 80
+      protocol: TCP
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1G"
+      requests:
+        cpu: "1"
+        memory: "10Mi"

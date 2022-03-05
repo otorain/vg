@@ -1,0 +1,11 @@
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map
+  namespace: dev
+data:
+  info.yml: |
+    name: ian
+    password: 3877381Ian

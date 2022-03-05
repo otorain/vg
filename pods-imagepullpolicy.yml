@@ -1,0 +1,17 @@
+
+---
+
+# pod 容器镜像拉取策略
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-imagepullpolicy # pod name 必须全小写
+  namespace: dev
+  labels:
+    user: ian
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.20.1
+    imagePullPolicy: IfNotPresent

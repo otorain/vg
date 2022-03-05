@@ -1,0 +1,41 @@
+# docker.io/mohitsharma44/nfs-subdir-external-provisioner:latest
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nfs-client-provisioner
+spec: 
+  selector:
+    matchLabels:
+      app: nfs-client-provisioner
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nfs-client-provisioner
+    spec:
+      serviceAccountName: nfs-client-provisioner
+      containers:
+      - name: nfs-client-root
+        image: registry.cn-hangzhou.aliyuncs.com/south_lynx/nfs-subdir-external-provisioner:v4.0.0
+        volumeMounts:
+        - name: nfs-client-root
+          mountPath: /persistentvolumes
+        env:
+        - name: PROVISIONER_NAME
+          value: nfs-provisioner
+        - name: NFS_SERVER
+          value: 10.0.0.10
+        - name: NFS_PATH
+          value: /mnt/data
+      imagePullSecrets:
+        - name: south-lynx-hub
+      volumes: 
+      - name: nfs-client-root
+        nfs: 
+          server: 10.0.0.10
+          path: /mnt/data
+          
+          

@@ -1,0 +1,20 @@
+kind: Pod
+apiVersion: v1
+metadata: 
+  name: sc-test-pod
+  namespace: dev
+spec: 
+  containers:
+  - name: nginx
+    image: nginx:1.21.5
+    ports:
+    - name: http
+      containerPort: 80
+    volumeMounts:
+    - name: logs
+      mountPath: /var/log/nginx
+  volumes:
+  - name: logs
+    persistentVolumeClaim:
+      claimName: test-pvc
+      readOnly: false
